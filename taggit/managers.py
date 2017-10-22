@@ -123,7 +123,8 @@ class _TaggableManager(models.Manager):
                 attrgetter('_prefetch_related_val'),
                 lambda obj: obj._get_pk_val(),
                 False,
-                self.prefetch_cache_name)
+                self.prefetch_cache_name,
+                False)
 
     def _lookup_kwargs(self):
         return self.through.lookup_kwargs(self.instance)
@@ -587,7 +588,7 @@ class TaggableManager(RelatedField, Field):
             params = content_type_ids
         return extra_where, params
 
-    def _get_mm_case_path_info(self, direct=False):
+    def _get_mm_case_path_info(self, filtered_relation=None, direct=False):
         pathinfos = []
         linkfield1 = self.through._meta.get_field('content_object')
         linkfield2 = self.through._meta.get_field(self.m2m_reverse_field_name())
@@ -601,32 +602,32 @@ class TaggableManager(RelatedField, Field):
         pathinfos.extend(join2infos)
         return pathinfos
 
-    def _get_gfk_case_path_info(self, direct=False):
+    def _get_gfk_case_path_info(self, filtered_relation=None, direct=False):
         pathinfos = []
         from_field = self.model._meta.pk
         opts = self.through._meta
         linkfield = self.through._meta.get_field(self.m2m_reverse_field_name())
         if direct:
-            join1infos = [PathInfo(self.model._meta, opts, [from_field], _remote_field(self), True, False)]
+            join1infos = [PathInfo(self.model._meta, opts, [from_field], _remote_field(self), True, False, filtered_relation)]
             join2infos = linkfield.get_path_info()
         else:
             join1infos = linkfield.get_reverse_path_info()
-            join2infos = [PathInfo(opts, self.model._meta, [from_field], self, True, False)]
+            join2infos = [PathInfo(opts, self.model._meta, [from_field], self, True, False, filtered_relation)]
         pathinfos.extend(join1infos)
         pathinfos.extend(join2infos)
         return pathinfos
 
-    def get_path_info(self):
+    def get_path_info(self, filtered_relation=None):
         if self.use_gfk:
-            return self._get_gfk_case_path_info(direct=True)
+            return self._get_gfk_case_path_info(filtered_relation, direct=True)
         else:
-            return self._get_mm_case_path_info(direct=True)
+            return self._get_mm_case_path_info(filtered_relation, direct=True)
 
-    def get_reverse_path_info(self):
+    def get_reverse_path_info(self, filtered_relation=None):
         if self.use_gfk:
-            return self._get_gfk_case_path_info(direct=False)
+            return self._get_gfk_case_path_info(filtered_relation, direct=False)
         else:
-            return self._get_mm_case_path_info(direct=False)
+            return self._get_mm_case_path_info(filtered_relation, direct=False)
 
     def get_joining_columns(self, reverse_join=False):
         if reverse_join:
