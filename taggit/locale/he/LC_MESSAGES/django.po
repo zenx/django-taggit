@@ -9,12 +9,13 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-06-26 12:47-0500\n"
 "PO-Revision-Date: 2010-06-26 12:54-0600\n"
-"Last-Translator: Alex <alex.gaynor@gmail.com>\n"
+"Last-Translator: translatte.AI <autopilot@translatte.ai>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Revisiondate: 2024-09-30 14:36+0000\n"
 
 #: forms.py:20
 msgid "Please provide a comma-separated list of tags."
@@ -36,7 +37,7 @@ msgstr "שם"
 
 #: models.py:11
 msgid "Slug"
-msgstr ""
+msgstr "שַׁלָּף"
 
 #: models.py:17
 msgid "Tag"
@@ -49,19 +50,19 @@ msgstr "%(object)s מתויג עם %(tag)s"
 
 #: models.py:86
 msgid "Object id"
-msgstr ""
+msgstr "מזהה אובייקט"
 
 #: models.py:87
 msgid "Content type"
-msgstr ""
+msgstr "סוג תוכן"
 
 #: models.py:92
 msgid "Tagged Item"
-msgstr ""
+msgstr "פריט מסווג"
 
 #: models.py:93
 msgid "Tagged Items"
-msgstr ""
+msgstr "פריטים מסווגים"
 
 #: contrib/suggest/models.py:57
 msgid "Enter a valid Regular Expression. To make it case-insensitive include \"(?i)\" in your expression."
